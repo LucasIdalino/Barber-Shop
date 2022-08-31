@@ -1,42 +1,39 @@
 from django.db import models
+from django.utils import timezone
+from datetime import datetime
+
 
 
 class Servico(models.Model):
-
-    servico = models.CharField(max_length=50)
-    preco = models.FloatField()
-
-    def __str__(self):
-        return self.servico
-
-
-class Funcionario(models.Model):
-
-    nome = models.CharField(max_length=100)
-    habilidade = models.ManyToManyField(Servico)
-    
+    servico = models.CharField(max_length=100, blank=False, null=False)
+    preco = models.IntegerField(blank=False, null=False)
 
     def __str__(self):
-        return self.nome
-
+        return '%s' % (self.servico)
 
 
 class Cliente(models.Model):
-
-    nome = models.CharField(max_length=100)
-    idade = models.IntegerField()
+    nome = models.CharField(max_length=100, blank=False, null=False)
+    sobrenome = models.CharField(max_length=100, blank=False, null=False)
+    nascimento = models.DateField(default=timezone.now())
+    email = models.EmailField(blank=False, null=False)
 
     def __str__(self):
-        return self.nome
+        return '%s' % (self.nome)
 
+
+class Funcionario(models.Model):
+    nome = models.CharField(max_length=100, blank=False, null=False)
+    habilidade = models.ManyToManyField(Servico)
+
+    def __str__(self):
+        return '%s' % (self.nome)
 
 
 class Atendimento(models.Model):
-
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, null=True)
-    funcionario  = models.ForeignKey(Funcionario, on_delete=models.CASCADE)
-    servico = models.ManyToManyField(Servico, related_name='serviços')
-    horario = models.DateTimeField(auto_now_add=True)
+    funcionario = models.ForeignKey(Funcionario, on_delete=models.CASCADE)
+    servico = models.ManyToManyField(Servico)
+    horario = models.DateTimeField()
 
     def __str__(self):
-        return '%s foi atendido por %s' % (self.cliente, self.funcionario)
+        return 'Seu atendimento foi agendado para %s' % (self.horario)
