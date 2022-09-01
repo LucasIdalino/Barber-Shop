@@ -15,7 +15,7 @@ class FuncionarioViewSet(ModelViewSet):
 class ClienteViewSet(ModelViewSet):
     queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    #permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class ServicoViewSet(ModelViewSet):
