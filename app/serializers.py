@@ -1,30 +1,46 @@
 from app.models import *
-from datetime import date
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 
 
-class FuncionarioSerializer(ModelSerializer):
+
+class FuncionarioSerializer(serializers.ModelSerializer):
+    habilidade = serializers.SlugRelatedField(
+        many = True,
+        queryset=Servico.objects.all(),
+        slug_field = 'servico'
+    )
+
     class Meta:
         model = Funcionario
-        fields = '__all__'
-        depth = 1
+        fields = ('nome', 'habilidade')
+        
 
-
-class ClienteSerializer(ModelSerializer):
+class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
         fields = '__all__'
         
 
-class ServicoSerializer(ModelSerializer):
+class ServicoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Servico
         fields = '__all__'
         
 
+class AtendimentoSerializer(serializers.ModelSerializer):
+    servico = serializers.SlugRelatedField(
+        many=True,
+        queryset=Servico.objects.all(),
+        slug_field='servico'
+    )
 
-class AtendimentoSerializer(ModelSerializer):
+    funcionario = serializers.SlugRelatedField(
+        many=True,
+        queryset = Funcionario.objects.all(),
+        slug_field='funcionario'
+    )
+
     class Meta:
         model = Atendimento
         fields = '__all__'      
-        depth = 0
+        
