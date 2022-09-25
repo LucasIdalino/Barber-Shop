@@ -1,3 +1,4 @@
+from asyncore import read
 from app.models import *
 from rest_framework import serializers
 
@@ -25,7 +26,7 @@ class ServicoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Servico
         fields = '__all__'
-        
+    
 
 class AtendimentoSerializer(serializers.ModelSerializer):
     servico = serializers.SlugRelatedField(
@@ -34,13 +35,7 @@ class AtendimentoSerializer(serializers.ModelSerializer):
         slug_field='servico'
     )
 
-    funcionario = serializers.SlugRelatedField(
-        many=True,
-        queryset = Funcionario.objects.all(),
-        slug_field='funcionario'
-    )
-
     class Meta:
         model = Atendimento
-        fields = '__all__'      
+        fields = '__all__'    
         

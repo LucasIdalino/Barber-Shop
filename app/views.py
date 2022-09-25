@@ -1,5 +1,8 @@
 from django.shortcuts import render
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, IsAuthenticatedOrReadOnly
 from app.models import *
 from app.serializers import *
@@ -12,11 +15,10 @@ class FuncionarioViewSet(ModelViewSet):
     
 
 
-class ClienteViewSet(ModelViewSet):
+class ClienteModelViewSet(ModelViewSet):
     queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
-    #permission_classes = [IsAuthenticatedOrReadOnly]
-
+    
 
 class ServicoViewSet(ModelViewSet):
     queryset = Servico.objects.all()
