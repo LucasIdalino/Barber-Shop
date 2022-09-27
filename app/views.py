@@ -52,7 +52,7 @@ class AtendimentoGenericsList(generics.ListCreateAPIView):
     queryset = Atendimento.objects.all()
     serializer_class = AtendimentoSerializer
 
-#TODO  Refatorar código fazendo checagem da requisão em um query
+#TODO  Refatorar código fazendo checagem da requisição em um query
 
     def post(self, request):
         print(request.data['funcionario'])
