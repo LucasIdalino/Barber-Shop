@@ -54,14 +54,6 @@ class AtendimentoGenericsList(generics.ListCreateAPIView):
 
 #TODO  Refatorar código fazendo checagem da requisição em um query
 
-    def post(self, request):
-        print(request.data['funcionario'])
-        query = Servico.objects.filter(funcionario=request.data['funcionario'])
-       
-        if request.data['servico'] in query:
-            serializer = AtendimentoSerializer(data=request.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(status=status.HTTP_400_BAD_REQUEST, )
 
 class AtendimentoGenericsRUD(generics.RetrieveUpdateDestroyAPIView):
     queryset = Atendimento.objects.all()
