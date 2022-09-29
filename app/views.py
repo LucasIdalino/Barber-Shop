@@ -52,8 +52,6 @@ class AtendimentoGenericsList(generics.ListCreateAPIView):
     queryset = Atendimento.objects.all()
     serializer_class = AtendimentoSerializer
 
-#TODO  Refatorar código fazendo checagem da requisição em um query
-
 
 class AtendimentoGenericsRUD(generics.RetrieveUpdateDestroyAPIView):
     queryset = Atendimento.objects.all()
