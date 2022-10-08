@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import F
 from django.utils import timezone
 
 
@@ -36,3 +37,4 @@ class Atendimento(models.Model):
 
     def __str__(self):
         return 'Seu atendimento foi agendado para %s' % (self.horario)
+

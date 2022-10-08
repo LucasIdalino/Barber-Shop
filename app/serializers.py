@@ -1,7 +1,7 @@
 from asyncore import read
 from app.models import *
 from rest_framework import serializers
-from rest_framework.serializers import ValidationError
+from rest_framework.serializers import ValidationError, SerializerMethodField
 
 
 
@@ -38,22 +38,10 @@ class AtendimentoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Atendimento
-        fields = '__all__'    
+        fields = '__all__' 
+        depth = 1   
         
         
     #TODO O método create não contém o parâmetro 'instance'. Neste método, deve ser verificado
-    #se o funcionário escolhido contém a habilidade desejada pela o usuário.
-
-    def create(self, validated_data, instance):
-        funcionario = validated_data['funcionario']
-        habilidade = validated_data['servico']
-        query = Funcionario.objects.all()
-
-        if validated_data['servico'] in instance.funcionario.habilidade:
-            atendimento = Atendimento.objects.create(**validated_data)
-            atendimento.save()
-            return atendimento
-        else:
-            raise ValidationError(
-                {'erro': f'O funcionário {funcionario} não tem está habilidade {habilidade}.'}
-            )
+    #se o funcionário escolhido contém a habilidade desejada pelo o usuário.
+   

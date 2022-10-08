@@ -56,5 +56,3 @@ class AtendimentoGenericsList(generics.ListCreateAPIView):
 class AtendimentoGenericsRUD(generics.RetrieveUpdateDestroyAPIView):
     queryset = Atendimento.objects.all()
     serializer_class = AtendimentoSerializer
-
-    
